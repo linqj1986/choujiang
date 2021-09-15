@@ -1,0 +1,69 @@
+﻿<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>抽奖</title>
+        <style>
+          .title{text-align:center;line-height:5; width: 220px;height:500px;}
+          .start,.stop{width:100px;height:30px;line-height:30px;font-size:14px;background-color:red;color:white;float:left;margin-left:10px;text-align:center; cursor:pointer;}
+        </style>
+    </head>
+    <body leftmargin="670">
+      <div class="title" id="title" >开始中奖</div>
+      <div class="start" id="start" >开始</div>
+      <div class="stop" id="stop" >停止</div>  
+ 
+ 
+ 
+      <script>
+        var data=['<img src=\'1.jpg\'>','<img src=\'2.jpg\'>','<img src=\'3.png\'>','<img src=\'4.png\'>','<img src=\'5.png\'>',
+                  '<img src=\'6.png\'>','<img src=\'7.png\'>','<img src=\'8.png\'>','<img src=\'9.png\'>','<img src=\'10.png\'>'
+                  ,'<img src=\'11.png\'>','<img src=\'12.png\'>','<img src=\'13.png\'>','<img src=\'14.png\'>','<img src=\'15.jpg\'>'
+                  ,'<img src=\'16.png\'>','<img src=\'17.png\'>','<img src=\'18.png\'>'],
+            timer=null,
+            flag=0;
+        var random = 0;
+            
+        window.onload=function(){
+            var start=document.getElementById('start'),
+                stop=document.getElementById('stop');
+ 
+            start.onclick=startFun;
+            stop.onclick=stopFun;
+ 
+            document.onkeyup=function(event){
+              event=event||window.event;
+              if(event.keyCode==13){
+                 if(flag==0){
+                   startFun();
+                   flag=1; 
+                 }else{
+                    stopFun();
+                    flag=0;
+                 }
+              }
+            }
+        }
+ 
+        function startFun(){
+           var title=document.getElementById('title'),
+               start=document.getElementById('start');
+           clearInterval(timer);           //关闭定时器
+           timer=setInterval(function(){   //开启定时器
+             random=Math.floor(Math.random()*data.length); //向上取整（随机*数组个数）
+             title.innerHTML=data[random];   //获取数组的值
+           },50)
+           start.style.backgroundColor='#999';
+        }
+         
+        function stopFun(){
+            var start=document.getElementById('start');
+            clearInterval(timer);
+            start.style.backgroundColor='red';
+            data.splice(random,1);
+        }
+ 
+ 
+      </script>
+    </body>
+</html>
